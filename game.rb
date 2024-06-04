@@ -9,8 +9,10 @@ class Game
   end
 
   def play
-    until game_over?
+    until game_over? # loop will continue until the game_over method returns true
       question = Question.new(@current_player, opposing_player)
+
+      # if the player answered wrong, they will lose a life
       if !question.ask(@current_player)
         @current_player.lose_life
       end
@@ -22,10 +24,12 @@ class Game
 
   private
 
+  # switch turns on who's asking the question and who's answering the question
   def switch_turns
     @current_player = opposing_player
   end
 
+  # if current player is player 1, this method will return player 2 as the opposing player, vice versa
   def opposing_player
     @current_player == @player1 ? @player2 : @player1
   end
@@ -35,7 +39,7 @@ class Game
   end
 
   def game_over?
-    !@player1.alive? || !@player2.alive?
+    !@player1.alive? || !@player2.alive? # checking if lives is still greater than 1
   end
 
   def announce_winner
